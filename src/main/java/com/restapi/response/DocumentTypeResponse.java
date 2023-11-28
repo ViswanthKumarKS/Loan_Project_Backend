@@ -1,15 +1,21 @@
 package com.restapi.response;
 
-import com.restapi.model.Document;
-import com.restapi.model.DocumentType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
+import lombok.Setter;
 
-import java.util.List;
+import javax.validation.constraints.*;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class DocumentTypeResponse {
-    private List<DocumentType> documentTypes;
+
+
+    private Long id;
+
+    private String documentName;
+
+    private Long user_id;
+
+    private boolean isBoolean=false;
+    private String documentFile;
 }

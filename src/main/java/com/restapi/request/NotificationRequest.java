@@ -15,6 +15,6 @@ public class NotificationRequest {
 
     private String recipient;
 
-    private Integer user_id;
+    private Long user_id;
 
 }

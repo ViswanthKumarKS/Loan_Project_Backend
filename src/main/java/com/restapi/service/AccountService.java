@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -25,46 +26,45 @@ public class AccountService {
     private AccountDto accountDto;
 
 
-
-
-    public AccountResponse findAll() {
-      List<Account> accountList=accountRepository.findAll();
-
-      return accountDto.mapToAccountResponse(accountList);
+    public List<AccountResponse> findAll() {
+        List<Account> accounts = accountRepository.findAll();
+        return accountDto.mapToAccountResponse(accounts);
 
 
     }
 
 
-
-
-    public AccountResponse createAccount(AccountRequest accountRequest) {
+    public Account createAccount(AccountRequest accountRequest) {
         Account account = accountDto.mapToAccount(accountRequest);
-
-        AppUser appUser=userRepository.findById(accountRequest.getUser_id())
-                        .orElseThrow(()-> new ResourceNotFoundException("user_id","user_id",accountRequest.getUser_id()));
+        System.out.println(account.getId());
+        AppUser appUser = userRepository.findById(Long.valueOf(accountRequest.getUser_id()))
+                .orElseThrow(() -> new ResourceNotFoundException("user_id", "user_id", accountRequest.getUser_id()));
         account.setAppUser(appUser);
+        System.out.println(appUser.getId());
 
 
+        accountRepository.save(account);
+        return account;
+
+    }
+
+    public List<AccountResponse> updateAccount(AccountRequest accountRequest) {
+        Account account = accountDto.mapToAccount(accountRequest);
         accountRepository.save(account);
         return findAll();
 
     }
 
-    public AccountResponse updateAccount(AccountRequest accountRequest) {
-        Account account=accountDto.mapToAccount(accountRequest);
-        accountRepository.save(account);
-        return findAll();
-
-    }
-
-    public AccountResponse deleteById(Integer id) {
+    public List<AccountResponse> deleteById(Integer id) {
         accountRepository.deleteById(Long.valueOf(id));
         return findAll();
     }
 
-    public AccountResponse findById(Integer userId) {
-        accountRepository.findById(Long.valueOf(userId));
-        return findById(userId);
+    public AccountResponse findById(Long userId) {
+        Account account = accountRepository.findByUserId(userId).
+                orElseThrow((() -> new ResourceNotFoundException("AppUserId",
+                        "AppUserId", userId)));
+        AccountResponse accountResponse = accountDto.mapToAccountResponse(account);
+        return accountResponse;
     }
 }

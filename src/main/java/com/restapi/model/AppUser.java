@@ -24,7 +24,7 @@ public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "username", unique = true, nullable = false, length = 100)
     private String username;
@@ -35,7 +35,6 @@ public class AppUser {
     @Column(nullable = false, length = 100)
     private String name;
 
-
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role roles;
@@ -44,14 +43,18 @@ public class AppUser {
     private List<Loan> loan=new ArrayList<>();
 
 
-    @OneToOne(mappedBy="appUser")
-    private Account accountList;
+    @OneToMany(mappedBy="appUser")
+    private List<Account> accountList;
 
     @OneToMany(mappedBy = "appUser")
     private List<Notification> notificationList;
 
-    @OneToMany(mappedBy="appUser")
-    private List<Document> documentList;
+
+
+    @OneToMany(mappedBy = "appUser")
+    private List<DocumentType> documentTypes;
+
+
 
     @CreationTimestamp
     private LocalDateTime createdAt;

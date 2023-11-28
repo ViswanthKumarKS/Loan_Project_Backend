@@ -7,7 +7,9 @@ import com.restapi.model.AppUser;
 import com.restapi.model.Loan;
 import com.restapi.repository.LoanRepository;
 import com.restapi.repository.UserRepository;
+import com.restapi.request.LoanApprovalRequest;
 import com.restapi.request.LoanRequest;
+import com.restapi.response.AccountResponse;
 import com.restapi.response.LoanResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,19 +30,39 @@ public class LoanService {
 
 
 
-    public LoanResponse findall() {
-        List<Loan> loanList = loanRepository.findAll();
-        return loanDto.mapToLoanResponse(loanList);
+    public List<LoanResponse> findall() {
+        List<Loan> loans= loanRepository.findAll();
+        return loanDto.mapToLoanResponse(loans);
 
     }
 
-    public LoanResponse create(LoanRequest loanRequest) {
-        Loan loanResponse=loanDto.mapToLoan(loanRequest);
-        AppUser appUser=userRepository.findById(Math.toIntExact(loanRequest.getUser_id()))
+    public List<LoanResponse> create(LoanRequest loanRequest) {
+        Loan loan = loanDto.mapToLoan(loanRequest);
+        AppUser appUser=userRepository.findById(Long.valueOf(Math.toIntExact(loanRequest.getUser_id())))
                 .orElseThrow(()-> new ResourceNotFoundException("user_id","user_id",loanRequest.getUser_id()));
-        loanResponse.setAppUser(appUser);
-        loanRepository.save(loanResponse);
+        loan.setAppUser(appUser);
+        loanRepository.save(loan);
         return findall();
 
+    }
+
+    public List<Loan> notApproval() {
+
+        List<Loan> loan=loanRepository.findNotApproval();
+
+        return loan;
+    }
+
+    public String approval(Long id) {
+        loanRepository.updateUser(id);
+        return "success";
+    }
+
+    public LoanResponse findById(Long userId) {
+        Loan loan = loanRepository.findByUserId(userId).
+                orElseThrow((() -> new ResourceNotFoundException("AppUserId",
+                        "AppUserId", userId)));
+        LoanResponse loanResponse = loanDto.mapToLoanResponse(loan);
+        return loanResponse;
     }
 }

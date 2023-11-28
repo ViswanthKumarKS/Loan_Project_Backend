@@ -20,7 +20,7 @@ public class NotificationDto {
     public Notification mapToNotification(NotificationRequest notificationRequest) {
         Notification notification= new Notification();
         if (notification.getId()!=null) {
-            notification.setId(Math.toIntExact(notificationRequest.getId()));
+            notification.setId(Long.valueOf(Math.toIntExact(notificationRequest.getId())));
         }
         notification.setMessage(notificationRequest.getMessage());
         notification.setRecipient(notificationRequest.getRecipient());

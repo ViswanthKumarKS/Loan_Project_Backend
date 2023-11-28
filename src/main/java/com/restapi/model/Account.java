@@ -1,6 +1,7 @@
 package com.restapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +17,20 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
+    private String name;
+
+    private String address;
+
+    private String State;
+
+    private String city;
 
     @Column(nullable = false, unique = true, length = 200)
     private Long acc_no;
@@ -28,11 +38,12 @@ public class Account {
     @Column(nullable = false)
 
     private double balance;
-
     @JsonIgnore
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser appUser;
+
 
     @CreationTimestamp
     @Column(updatable = false)

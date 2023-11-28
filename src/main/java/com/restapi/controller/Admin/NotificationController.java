@@ -1,8 +1,6 @@
 package com.restapi.controller.Admin;
 
-import com.restapi.request.DocumentRequest;
 import com.restapi.request.NotificationRequest;
-import com.restapi.response.DocumentResponse;
 import com.restapi.response.NotificationResponse;
 import com.restapi.response.common.APIResponse;
 import com.restapi.service.NotificationService;

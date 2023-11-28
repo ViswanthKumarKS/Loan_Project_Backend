@@ -1,11 +1,8 @@
 package com.restapi.request;
 
-
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -13,17 +10,30 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @ToString
 public class AccountRequest {
-    @NotEmpty
-    @Column(unique = false)
-    private Integer id;
 
-    @NotEmpty
-    @Size(min=13,message = "acc_no should have 13 characters")
+    private Long id;
+
+    @NotNull(message = "Account number cannot be null")
     private Long acc_no;
 
-    @NotEmpty
-    @Size(min=1000,message = "balance should have more than 1000 ruppes")
-    private double balance;
+    @NotNull(message = "Balance cannot be null")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Balance must be greater than 0")
+    private Double balance;
 
+    @NotBlank(message = "Name cannot be blank")
+    private String name;
+
+    @NotBlank(message = "Address cannot be blank")
+    private String address;
+
+    @NotBlank(message = "State cannot be blank")
+    private String state;
+
+    @NotBlank(message = "City cannot be blank")
+    private String city;
+
+    @NotNull(message = "User ID cannot be null")
     private Integer user_id;
+
 }
+

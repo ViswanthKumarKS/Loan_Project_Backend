@@ -22,6 +22,7 @@ public class AuthDto {
         authResponse.setId(Long.valueOf(appUser.getId()));
         authResponse.setName(appUser.getName());
         authResponse.setUsername(appUser.getUsername());
+        authResponse.setRole(appUser.getRoles().getName());
         return authResponse;
     }
 }

@@ -1,21 +1,19 @@
 package com.restapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tab_loan")
+@ToString
 public class Loan {
     @Id
     @GeneratedValue
@@ -24,6 +22,9 @@ public class Loan {
     private boolean isApproved = false;
 
     private Long amount;
+
+    private String LoanType;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

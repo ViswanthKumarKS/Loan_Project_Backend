@@ -47,24 +47,24 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 //        Create user
         createUserIfNotFound("user", "user", userRole);
         createUserIfNotFound("admin", "admin", adminRole);
-//        createMessageIfNotFound("Your loan is approved");
-//        createMessageIfNotFound("Your loan is cancelled");
+        createMessageIfNotFound("Your loan is approved");
+        createMessageIfNotFound("Your loan is cancelled");
 
 
         alreadySetup = true;
     }
 
 
-//    private Notification createMessageIfNotFound(final String message) {
-//        Notification notification = notificationRepository.findMessage(message);
-//
-//        if (notification==null) {
-//            notification=notificationRepository.findMessage(message);
-//            notification.setMessage(message);
-//            notification=notificationRepository.save(notification);
-//        }
-//        return notification;
-//    }
+    private Notification createMessageIfNotFound(final String message) {
+        Notification notification = notificationRepository.findByMessage(message);
+
+        if (notification!=null) {
+            notification=notificationRepository.findByMessage(message);
+            notification.setMessage(message);
+            notification=notificationRepository.save(notification);
+        }
+        return notification;
+    }
 
 
 
