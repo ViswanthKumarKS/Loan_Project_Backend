@@ -15,6 +15,7 @@ public class DocumentTypeResponse {
     private String documentName;
 
     private Long user_id;
+    private String username;
 
     private boolean isBoolean=false;
     private String documentFile;

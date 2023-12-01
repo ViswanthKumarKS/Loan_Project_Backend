@@ -2,6 +2,7 @@ package com.restapi.controller.Admin;
 
 import com.restapi.model.DocumentType;
 import com.restapi.request.ApprovalRequest;
+import com.restapi.response.DocumentTypeResponse;
 import com.restapi.response.common.APIResponse;
 import com.restapi.service.DocumentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ApprovalDocument {
     }
     @GetMapping("/all")
     public ResponseEntity<APIResponse>getNotApproval() {
-        List<DocumentType> approval = documentTypeService.notApproval();
+        List<DocumentTypeResponse> approval = documentTypeService.notApproval();
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(approval);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

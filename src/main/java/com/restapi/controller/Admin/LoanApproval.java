@@ -4,6 +4,7 @@ import com.restapi.model.DocumentType;
 import com.restapi.model.Loan;
 import com.restapi.request.ApprovalRequest;
 import com.restapi.request.LoanApprovalRequest;
+import com.restapi.response.LoanResponse;
 import com.restapi.response.common.APIResponse;
 import com.restapi.service.DocumentTypeService;
 import com.restapi.service.LoanService;
@@ -27,7 +28,7 @@ public class LoanApproval {
 
     @GetMapping("/all")
     public ResponseEntity<APIResponse> getNotApproval() {
-        List<Loan> approval = loanService.notApproval();
+        List<LoanResponse> approval = loanService.notApproval();
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(approval);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

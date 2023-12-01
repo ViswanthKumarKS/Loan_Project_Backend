@@ -23,6 +23,9 @@ public interface DocumentTypeRepository extends JpaRepository<DocumentType, Long
     @Query("Select d from DocumentType d where d.isBoolean=false")
     List<DocumentType> findNotApproval();
 
+//    @Query("SELECT d FROM DocumentType d inner join d.appUser a WHERE a.id = ?1")
+//    Optional<DocumentType> findByUserId(Long userId);
+//
     @Query("SELECT d FROM DocumentType d WHERE d.appUser.id = ?1")
     Optional<DocumentType> findByUserId(Long userId);
 }

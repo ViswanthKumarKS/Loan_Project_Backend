@@ -25,6 +25,7 @@ public class DocumentTypeDto {
            documentTypeResponse.setBoolean(documentType.getIsBoolean());
            documentTypeResponse.setId(documentType.getId());
            documentTypeResponse.setUser_id(documentType.getAppUser().getId());
+
            documentTypeResponse.setDocumentFile(documentType.getDocumentFile());
            documentTypeResponses.add(documentTypeResponse);
        }

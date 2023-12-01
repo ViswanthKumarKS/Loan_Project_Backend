@@ -46,11 +46,11 @@ public class LoanService {
 
     }
 
-    public List<Loan> notApproval() {
+    public List<LoanResponse> notApproval() {
 
         List<Loan> loan=loanRepository.findNotApproval();
 
-        return loan;
+        return loanDto.mapToLoanResponse(loan);
     }
 
     public String approval(Long id) {

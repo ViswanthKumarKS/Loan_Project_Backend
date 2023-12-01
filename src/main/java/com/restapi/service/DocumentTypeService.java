@@ -71,10 +71,10 @@ public class DocumentTypeService {
 
     }
 
-    public List<DocumentType> notApproval() {
+    public List<DocumentTypeResponse> notApproval() {
         List<DocumentType> documentTypes = documentTypeRepository.findNotApproval();
 
-        return documentTypes;
+        return documentTypeDto.mapToDocumentTypeResponse(documentTypes);
     }
 
     public DocumentTypeResponse findById(Long userId) {

@@ -35,7 +35,7 @@ public class DownloadController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentLength(file.length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
     }
 }
