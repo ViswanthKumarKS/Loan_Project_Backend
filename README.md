@@ -1,6 +1,7 @@
 # Loan Approval and Mangament System Project
 
 # Description
+#purpose
 
 ➡️ In the loan approval system project three steps 
 
