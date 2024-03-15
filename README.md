@@ -4,7 +4,7 @@
 
 ➡️ In the loan approval system project three steps 
 
-➡️ Add the account details
+➡️ Add the account details of the person
 
 ➡️ Fill the loan applications
 
