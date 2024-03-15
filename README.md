@@ -8,7 +8,7 @@
 
 ➡️ Fill the loan applications details
 
-➡️ upload the document for verification
+➡️ upload the document for verification of loan
 
 👉 Role 
 
