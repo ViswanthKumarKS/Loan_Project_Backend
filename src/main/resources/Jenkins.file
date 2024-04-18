@@ -1,28 +1,21 @@
 def gitCheckout(branch, repositoryUrl) {
     // Checkout the repository
-    git branch: branch, url: repositoryUrl
+    bat "git clone --branch ${branch} ${repositoryUrl} ."
 }
 
 pipeline {
-    agent {
-docker{
-image 'maven:latest'
-}
-}
-
+    agent any
+    
     parameters {
-        booleanParam(name: 'RELEASE', defaultValue: false)
-    }
-
-    parameters{
-
-           booleanparam
+        booleanParam(name: 'RELEASE', defaultValue: false, description: 'Set to true for release build')
     }
 
     stages {
         stage('Checkout') {
             steps {
-                gitCheckout('master', 'https://github.com/ViswanthKumarKS/Loan_Project_Backend.git')
+                script {
+                    gitCheckout('master', 'https://github.com/ViswanthKumarKS/Loan_Project_Backend.git')
+                }
             }
         }
         stage('Build') {
@@ -58,7 +51,7 @@ image 'maven:latest'
                     // Check user input
                     if (userInput) {
                         // Deployment steps
-                        bat 'echo "Deploying..."'
+                        bat 'echo Deploying...'
                         // Add your deployment commands here
                     } else {
                         // Abort deployment
