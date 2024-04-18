@@ -1,0 +1,82 @@
+def gitCheckout(branch, repositoryUrl) {
+    // Checkout the repository
+    git branch: branch, url: repositoryUrl
+}
+
+pipeline {
+    agent {
+docker{
+image 'maven:latest'
+}
+}
+
+    parameters {
+        booleanParam(name: 'RELEASE', defaultValue: false)
+    }
+
+    parameters{
+
+           booleanparam
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                gitCheckout('master', 'https://github.com/ViswanthKumarKS/Loan_Project_Backend.git')
+            }
+        }
+        stage('Build') {
+            when {
+                expression {
+                    // Check if RELEASE parameter is true
+                    return params.RELEASE == true
+                }
+            }
+            steps {
+                // Build the project using Maven
+                bat 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run tests using Maven
+                bat 'mvn test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Prompt for confirmation
+                    def userInput = input(
+                        id: 'deployPrompt',
+                        message: 'Do you want to proceed with deployment?',
+                        parameters: [
+                            [$class: 'BooleanParameterDefinition', defaultValue: true, description: 'Proceed with deployment?', name: 'Proceed']
+                        ]
+                    )
+
+                    // Check user input
+                    if (userInput) {
+                        // Deployment steps
+                        bat 'echo "Deploying..."'
+                        // Add your deployment commands here
+                    } else {
+                        // Abort deployment
+                        error("Deployment aborted by user.")
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            // Actions to take if the pipeline succeeds
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            // Actions to take if the pipeline fails
+            echo 'Pipeline failed!'
+        }
+    }
+}
