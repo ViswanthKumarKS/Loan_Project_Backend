@@ -1,14 +1,15 @@
 # Loan Approval and Mangament System Project
 
 # Description
+#purpose
 
 ➡️ In the loan approval system project three steps 
 
-➡️ Add the account details
+➡️ Add the account details of the person
 
-➡️ Fill the loan applications
+➡️ Fill the loan applications details
 
-➡️ upload the document for verification
+➡️ upload the document for verification of loan
 
 👉 Role 
 
