@@ -1,12 +1,13 @@
 def gitCheckout(branch, repositoryUrl) {
     // Checkout the repository
-    git branch: branch, url: repositoryUrl
+    bat "git clone --branch ${branch} ${repositoryUrl} ."
 }
 
 pipeline {
     agent {
         docker {
             image 'maven:latest'
+            // Assuming Docker is running on Windows, you can use 'windowsservercore' or 'nanoserver' images here
         }
     }
     
@@ -31,13 +32,13 @@ pipeline {
             }
             steps {
                 // Build the project using Maven
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
         stage('Test') {
             steps {
                 // Run tests using Maven
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
         stage('Deploy') {
@@ -55,7 +56,7 @@ pipeline {
                     // Check user input
                     if (userInput) {
                         // Deployment steps
-                        sh 'echo "Deploying..."'
+                        bat 'echo Deploying...'
                         // Add your deployment commands here
                     } else {
                         // Abort deployment
