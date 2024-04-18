@@ -4,12 +4,7 @@ def gitCheckout(branch, repositoryUrl) {
 }
 
 pipeline {
-    agent {
-        docker {
-            image 'maven:latest'
-            // Assuming Docker is running on Windows, you can use 'windowsservercore' or 'nanoserver' images here
-        }
-    }
+    agent any
     
     parameters {
         booleanParam(name: 'RELEASE', defaultValue: false, description: 'Set to true for release build')
