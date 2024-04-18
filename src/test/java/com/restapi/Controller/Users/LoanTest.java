@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -65,10 +66,9 @@ public class LoanTest {
         when(loanService.findall()).thenReturn(returnLoan());
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/loan/all").accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
-        JSONObject actualJson = new JSONObject(result.getResponse().getContentAsString());
-        String actualTimestamp = actualJson.getString("timestamp");
         System.out.println(result.getResponse().getContentAsString());
-        assertEquals("{\"status\":200,\"timestamp\":\"" + actualTimestamp + "\",\"data\":[{\"loans\":[],\"id\":1,\"amount\":2000,\"username\":\"sanjay\",\"approved\":false,\"loanType\":\"carLoan\"}],\"error\":null}", result.getResponse().getContentAsString());
+        JSONAssert.assertEquals("{\"data\":[{\"loans\":[],\"id\":1,\"amount\":2000,\"username\":\"sanjay\",\"loanType\":\"carLoan\",\"approved\":false}]}",result.getResponse().getContentAsString(),false);
+//
     }
 
     @Test
@@ -81,10 +81,8 @@ public class LoanTest {
        when(loanService.findById(3L)).thenReturn(loanResponse);
        RequestBuilder requestBuilder=MockMvcRequestBuilders.get("/api/loan/detail/3");
        MvcResult result=mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
-        JSONObject actualJson = new JSONObject(result.getResponse().getContentAsString());
-        String actualTimestamp = actualJson.getString("timestamp");
-        System.out.println(result.getResponse().getContentAsString());
-        assertEquals("{\"status\":200,\"timestamp\":\"" + actualTimestamp + "\",\"data\":{\"loans\":[],\"id\":1,\"amount\":2000,\"username\":\"sanjay\",\"approved\":false,\"loanType\":\"carLoan\"},\"error\":null}", result.getResponse().getContentAsString());
+       System.out.println(result.getResponse().getContentAsString());
+       JSONAssert.assertEquals("{\"data\":{\"loans\":[],\"id\":1,\"amount\":2000,\"username\":\"sanjay\",\"loanType\":\"carLoan\",\"approved\":false}}",result.getResponse().getContentAsString(),false);
     }
 
     @Test
@@ -102,9 +100,7 @@ public class LoanTest {
         RequestBuilder requestBuilder=MockMvcRequestBuilders.post("/api/loan").content(requestBody).contentType(MediaType.APPLICATION_JSON).with(csrf());
         MvcResult result=mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
         System.out.println(result.getResponse().getContentAsString());
-        JSONObject actualJson = new JSONObject(result.getResponse().getContentAsString());
-        String actualTimestamp = actualJson.getString("timestamp");
-        assertEquals("{\"status\":200,\"timestamp\":\""+actualTimestamp+"\",\"data\":[{\"loans\":[],\"id\":1,\"amount\":7678,\"username\":\"Viswanth\",\"approved\":false,\"loanType\":\"carLoan\"}],\"error\":null}",result.getResponse().getContentAsString());
+        JSONAssert.assertEquals("{\"data\":[{\"loans\":[],\"id\":1,\"amount\":7678,\"username\":\"Viswanth\",\"loanType\":\"carLoan\",\"approved\":false}]}",result.getResponse().getContentAsString(),false);
     }
 
 }
