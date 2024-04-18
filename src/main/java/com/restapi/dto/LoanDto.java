@@ -21,7 +21,7 @@ public class LoanDto {
     @Autowired
     private UserRepository userRepository;
 
-    public List<LoanResponse> mapToLoanResponse(List<Loan> loans) {
+    public List<LoanResponse> mapToLoanResponseList(List<Loan> loans) {
         List<LoanResponse> loanResponseList = new ArrayList<>();
         for (Loan loan : loans) {
             LoanResponse loanResponse = new LoanResponse();
@@ -41,7 +41,7 @@ public class LoanDto {
 
     public Loan mapToLoan(LoanRequest loanRequest) {
         Loan loan = new Loan();
-        if (loan.getId() != null) {
+        if (loan.getId()!=null) {
             loan.setId(loanRequest.getId());
         }
         loan.setApproved(loanRequest.isApproved());

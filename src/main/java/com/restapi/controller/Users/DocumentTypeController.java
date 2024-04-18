@@ -93,13 +93,13 @@ public class DocumentTypeController {
 
         }
     }
-    @PutMapping()
-    public ResponseEntity<APIResponse> UPDATEDocument(@Valid @RequestBody DocumentTypeRequest documentTypeRequest) {
-        List<DocumentType> documentTypes=documentTypeService.update(documentTypeRequest);
-        apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(documentTypes);
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
+//    @PutMapping()
+//    public ResponseEntity<APIResponse> UPDATEDocument(@Valid @RequestBody DocumentTypeRequest documentTypeRequest) {
+//        List<DocumentType> documentTypes=documentTypeService.update(documentTypeRequest);
+//        apiResponse.setStatus(HttpStatus.OK.value());
+//        apiResponse.setData(documentTypes);
+//        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+//    }
 
     @GetMapping("/detail/{user_id}")
     public ResponseEntity<APIResponse> getdocument(@Valid @PathVariable Long user_id) {

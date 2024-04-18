@@ -1,7 +1,7 @@
 package com.restapi.controller.Admin;
 
 import com.restapi.model.DocumentType;
-import com.restapi.request.ApprovalRequest;
+
 import com.restapi.response.DocumentTypeResponse;
 import com.restapi.response.common.APIResponse;
 import com.restapi.service.DocumentTypeService;

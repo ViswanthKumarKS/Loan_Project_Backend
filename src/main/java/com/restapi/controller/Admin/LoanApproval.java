@@ -2,8 +2,7 @@ package com.restapi.controller.Admin;
 
 import com.restapi.model.DocumentType;
 import com.restapi.model.Loan;
-import com.restapi.request.ApprovalRequest;
-import com.restapi.request.LoanApprovalRequest;
+
 import com.restapi.response.LoanResponse;
 import com.restapi.response.common.APIResponse;
 import com.restapi.service.DocumentTypeService;
@@ -35,6 +34,7 @@ public class LoanApproval {
     }
 
     @PutMapping("/approval/{id}")
+
     public ResponseEntity<APIResponse>getApproval(@Valid @PathVariable Long id){
         String approval=loanService.approval(id);
         apiResponse.setStatus(HttpStatus.OK.value());

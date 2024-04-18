@@ -1,6 +1,7 @@
 package com.restapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.restapi.request.LoginRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,8 +47,7 @@ public class AppUser {
     @OneToMany(mappedBy="appUser")
     private List<Account> accountList;
 
-    @OneToMany(mappedBy = "appUser")
-    private List<Notification> notificationList;
+
 
 
 

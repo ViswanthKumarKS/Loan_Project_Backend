@@ -7,7 +7,7 @@ import com.restapi.model.AppUser;
 import com.restapi.model.Loan;
 import com.restapi.repository.LoanRepository;
 import com.restapi.repository.UserRepository;
-import com.restapi.request.LoanApprovalRequest;
+
 import com.restapi.request.LoanRequest;
 import com.restapi.response.AccountResponse;
 import com.restapi.response.LoanResponse;
@@ -32,7 +32,7 @@ public class LoanService {
 
     public List<LoanResponse> findall() {
         List<Loan> loans= loanRepository.findAll();
-        return loanDto.mapToLoanResponse(loans);
+        return loanDto.mapToLoanResponseList(loans);
 
     }
 
@@ -50,7 +50,7 @@ public class LoanService {
 
         List<Loan> loan=loanRepository.findNotApproval();
 
-        return loanDto.mapToLoanResponse(loan);
+        return loanDto.mapToLoanResponseList(loan);
     }
 
     public String approval(Long id) {

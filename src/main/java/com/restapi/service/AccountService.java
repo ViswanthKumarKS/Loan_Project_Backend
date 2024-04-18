@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -28,7 +27,7 @@ public class AccountService {
 
     public List<AccountResponse> findAll() {
         List<Account> accounts = accountRepository.findAll();
-        return accountDto.mapToAccountResponse(accounts);
+        return accountDto.mapToAccountResponseList(accounts);
 
 
     }
@@ -67,4 +66,6 @@ public class AccountService {
         AccountResponse accountResponse = accountDto.mapToAccountResponse(account);
         return accountResponse;
     }
+
+
 }

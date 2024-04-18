@@ -1,7 +1,6 @@
 package com.restapi.dto;
 
 import com.restapi.model.Account;
-import com.restapi.model.AppUser;
 import com.restapi.repository.UserRepository;
 import com.restapi.request.AccountRequest;
 import com.restapi.response.AccountResponse;
@@ -10,14 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class AccountDto {
     @Autowired
     private UserRepository userRepository;
 
-    public List<AccountResponse> mapToAccountResponse(List<Account> accounts) {
+    public List<AccountResponse> mapToAccountResponseList(List<Account> accounts) {
         List<AccountResponse> accountResponseList = new ArrayList<>();
         for (Account account : accounts){
             AccountResponse accountResponse = new AccountResponse();
@@ -48,6 +46,7 @@ public class AccountDto {
         account.setAddress(accountRequest.getAddress());
         account.setState(accountRequest.getState());
         account.setCity(accountRequest.getCity());
+
         return account;
     }
 

@@ -48,10 +48,7 @@ public class DocumentTypeService {
                     .orElseThrow(() -> new ResourceNotFoundException("user_id", "user_id", userId));
             documentType.setAppUser(appUser);
             documentTypeRepository.save(documentType);
-
-            // Ensure changes are persisted before fetching the updated list
             documentTypeRepository.flush();
-
             return findall();
         } catch (Exception e) {
             throw new ServiceException("Error creating document", e);

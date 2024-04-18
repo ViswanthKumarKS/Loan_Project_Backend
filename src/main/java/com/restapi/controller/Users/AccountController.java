@@ -48,21 +48,21 @@ public class AccountController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<APIResponse> createAccount(@Valid @RequestBody AccountRequest accountRequest) {
-        Account accountResponse = (Account) accountService.createAccount(accountRequest);
+        Account accountResponse = accountService.createAccount(accountRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(accountResponse);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<APIResponse> updateAccount(@Valid @RequestBody AccountRequest accountRequest) {
-        List<AccountResponse> accountResponse = accountService.updateAccount(accountRequest);
-        apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(accountResponse);
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<APIResponse> updateAccount(@Valid @RequestBody AccountRequest accountRequest) {
+//        List<AccountResponse> accountResponse = accountService.updateAccount(accountRequest);
+//        apiResponse.setStatus(HttpStatus.OK.value());
+//        apiResponse.setData(accountResponse);
+//        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<APIResponse> deleteById(@Valid @PathVariable Integer id) {

@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -25,11 +24,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    private NotificationRepository notificationRepository;
 
-    @Autowired
-    private ViewRepository viewRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -47,24 +42,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 //        Create user
         createUserIfNotFound("user", "user", userRole);
         createUserIfNotFound("admin", "admin", adminRole);
-        createMessageIfNotFound("Your loan is approved");
-        createMessageIfNotFound("Your loan is cancelled");
+
 
 
         alreadySetup = true;
     }
 
 
-    private Notification createMessageIfNotFound(final String message) {
-        Notification notification = notificationRepository.findByMessage(message);
-
-        if (notification!=null) {
-            notification=notificationRepository.findByMessage(message);
-            notification.setMessage(message);
-            notification=notificationRepository.save(notification);
-        }
-        return notification;
-    }
 
 
 
@@ -74,7 +58,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private Role createRoleIfNotFound(final String username) {
         Role role = roleRepository.findByName(username);
         if (role == null) {
-            role = new Role();
+            role = new Role("USER");
             role.setName(username);
             role = roleRepository.save(role);
         }
