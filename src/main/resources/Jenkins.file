@@ -5,24 +5,21 @@ def gitCheckout(branch, repositoryUrl) {
 
 pipeline {
     agent {
-docker{
-image 'maven:latest'
-}
-}
-
-    parameters {
-        booleanParam(name: 'RELEASE', defaultValue: false)
+        docker {
+            image 'maven:latest'
+        }
     }
-
-    parameters{
-
-           booleanparam
+    
+    parameters {
+        booleanParam(name: 'RELEASE', defaultValue: false, description: 'Set to true for release build')
     }
 
     stages {
         stage('Checkout') {
             steps {
-                gitCheckout('master', 'https://github.com/ViswanthKumarKS/Loan_Project_Backend.git')
+                script {
+                    gitCheckout('master', 'https://github.com/ViswanthKumarKS/Loan_Project_Backend.git')
+                }
             }
         }
         stage('Build') {
@@ -34,13 +31,13 @@ image 'maven:latest'
             }
             steps {
                 // Build the project using Maven
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
         stage('Test') {
             steps {
                 // Run tests using Maven
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
         stage('Deploy') {
@@ -58,7 +55,7 @@ image 'maven:latest'
                     // Check user input
                     if (userInput) {
                         // Deployment steps
-                        bat 'echo "Deploying..."'
+                        sh 'echo "Deploying..."'
                         // Add your deployment commands here
                     } else {
                         // Abort deployment
